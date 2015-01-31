@@ -3,6 +3,9 @@ package com.tianwendong.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.tianwendong.domain.Message;
 import com.tianwendong.repository.MessageRepository;
+import com.tianwendong.security.AuthoritiesConstants;
+import com.tianwendong.service.MessageService;
+import com.tianwendong.web.rest.dto.MessageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -10,8 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -24,6 +30,9 @@ public class MessageResource {
     private final Logger log = LoggerFactory.getLogger(MessageResource.class);
 
     @Inject
+    private MessageService messageService;
+
+    @Inject
     private MessageRepository messageRepository;
 
     /**
@@ -33,9 +42,20 @@ public class MessageResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody Message message) {
-        log.debug("REST request to save Message : {}", message);
-        messageRepository.save(message);
+    public ResponseEntity<?> create(@Valid @RequestBody MessageDTO messageDTO, HttpServletRequest request) {
+        log.debug("REST request to save Message : {}", messageDTO);
+
+        String ip = request.getRemoteAddr();
+        String userAgent = request.getHeader("User-Agent");
+
+        messageService.saveNewMessage(messageDTO.getEmail(),
+                messageDTO.getNickname(),
+                messageDTO.getContent(),
+                ip,
+                userAgent
+            );
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -73,6 +93,7 @@ public class MessageResource {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public void delete(@PathVariable Long id) {
         log.debug("REST request to delete Message : {}", id);
         messageRepository.delete(id);

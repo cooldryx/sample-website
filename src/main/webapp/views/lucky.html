@@ -1,21 +1,23 @@
-<div class="lucky-item container text-center" ng-init="getAnotherLuckyItem()">
-    <h3>Congratulations!</h3>
-    <h5>You found a(n) <span class="{{ 'tier-' + item.star }}">{{ item.tier }}</span> item</h5>
-    <img ng-src="{{ item.path }}" alt="{{ item.name }}" />
-    <p class="lead {{ 'tier-' + item.star }}">{{ item.name }}</p>
-    <p>
-        <span ng-repeat="i in getNumber(item.star) track by $index" class="item-star glyphicon glyphicon-star"></span>
-    </p>
-    <p ng-show="item.star == 6">This is the only one in the world! You are really lucky!</p>
-    <p>{{ item.description }}</p>
-</div>
+<div ng-cloak>
+    <div class="lucky-item container text-center" ng-init="getAnotherLuckyItem()">
+        <h3>Congratulations!</h3>
+        <h5>You found a(n) <span class="{{ 'tier-' + item.star }}">{{ item.tier }}</span> item</h5>
+        <img ng-src="{{ item.path }}" alt="{{ item.name }}" />
+        <p class="lead {{ 'tier-' + item.star }}">{{ item.name }}</p>
+        <p>
+            <span ng-repeat="i in getNumber(item.star) track by $index" class="item-star glyphicon glyphicon-star"></span>
+        </p>
+        <p ng-show="item.star == 6">This is the only one in the world! You are really lucky!</p>
+        <p>{{ item.description }}</p>
+    </div>
 
-<div class="text-center">
-    <a href ng-click="getAnotherLuckyItem()"><button class="btn btn-default">One more</button></a>
-</div>
+    <div class="text-center">
+        <a href ng-click="getAnotherLuckyItem()"><button class="btn btn-default">One more</button></a>
+    </div>
 
-<div class="container">
-    <p class="well">
-        Or you can login <a href="#/login">here</a> to check out all the items
-    </p>
+    <div class="container">
+        <p class="well">
+            Or you can login <a href="#/login">here</a> to check out all the items
+        </p>
+    </div>
 </div>

@@ -3,16 +3,16 @@
 tianwendongApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
             $routeProvider
-                .when('/message', {
+                .when('/messages', {
                     templateUrl: 'views/messages.html',
                     controller: 'MessageController',
-                    resolve:{
+                    resolve: {
                         resolvedMessage: ['Message', function (Message) {
                             return Message.query().$promise;
                         }]
                     },
                     access: {
-                        authorizedRoles: [USER_ROLES.all]
+                        authorizedRoles: [USER_ROLES.admin]
                     }
-                })
+                });
         });

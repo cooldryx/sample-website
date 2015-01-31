@@ -181,6 +181,20 @@ tianwendongApp.controller('LuckyController', function ($scope, Lucky) {
         };
     });
 
+tianwendongApp.controller('SendMessageController', function ($scope, Message) {
+        $scope.create = function () {
+            Message.save($scope.message,
+                function () {
+                    $('#saveMessageModal').modal('hide');
+                    $scope.clear();
+                });
+        };
+
+        $scope.clear = function () {
+            $scope.message = { email: null, nickname: null, content: null };
+        };
+    });
+
 tianwendongApp.controller('HealthController', function ($scope, HealthCheckService) {
         $scope.updatingHealth = true;
 
@@ -212,21 +226,21 @@ tianwendongApp.controller('ConfigurationController', function ($scope, resolvedC
 
 tianwendongApp.controller('MetricsController', function ($scope, MetricsService, HealthCheckService, ThreadDumpService) {
         $scope.metrics = {};
-		$scope.updatingMetrics = true;
+        $scope.updatingMetrics = true;
 
         $scope.refresh = function() {
-			$scope.updatingMetrics = true;
-			MetricsService.get().then(function(promise) {
-        		$scope.metrics = promise;
-				$scope.updatingMetrics = false;
-        	},function(promise) {
-        		$scope.metrics = promise.data;
-				$scope.updatingMetrics = false;
-        	});
+            $scope.updatingMetrics = true;
+            MetricsService.get().then(function(promise) {
+                $scope.metrics = promise;
+                $scope.updatingMetrics = false;
+            },function(promise) {
+                $scope.metrics = promise.data;
+                $scope.updatingMetrics = false;
+            });
         };
 
-		$scope.$watch('metrics', function(newValue, oldValue) {
-			$scope.servicesStats = {};
+        $scope.$watch('metrics', function(newValue, oldValue) {
+            $scope.servicesStats = {};
             $scope.cachesStats = {};
             angular.forEach(newValue.timers, function(value, key) {
                 if (key.indexOf("web.rest") != -1 || key.indexOf("service") != -1) {
@@ -246,7 +260,7 @@ tianwendongApp.controller('MetricsController', function ($scope, MetricsService,
                     };
                 }
             });
-		});
+        });
 
         $scope.refresh();
 
