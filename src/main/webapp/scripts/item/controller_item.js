@@ -26,7 +26,7 @@ tianwendongApp.controller('ItemController', function ($scope, resolvedItem, Item
         };
 
         $scope.clear = function () {
-            $scope.item = {name: null, star: null, description: null, id: null, path: null};
+            $scope.item = { name: null, star: null, description: null, id: null, path: null };
         };
 
     });
