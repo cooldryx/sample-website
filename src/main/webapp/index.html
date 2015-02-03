@@ -39,18 +39,26 @@
                                 <span translate="global.menu.home">Home</span>
                             </a>
                         </li>
+                        <li>
+                            <a data-toggle="modal" data-target="#saveMessageModal" ng-click="clear()">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                                <span>Message</span>
+                            </a>
+                            <message></message>
+                        </li>
                         <li ng-switch-when="true" class="dropdown pointer">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                    <span>
-                                        <span class="glyphicon glyphicon-th-list"></span>
-                                        <span class="hidden-tablet" translate="global.menu.entities.main">
-                                            Entities
-                                        </span>
-                                        <b class="caret"></b>
+                                <span>
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                    <span class="hidden-tablet" translate="global.menu.entities.main">
+                                        Entities
                                     </span>
+                                    <b class="caret"></b>
+                                </span>
                             </a>
                             <ul class="dropdown-menu" ng-controller="MenuController">
-                                <li ng-switch-when="true"><a href="#/message"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;message</a></li>
+                                <li ng-switch-when="true"><a href="#/messages"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;messages</a></li>
+                                <li ng-switch-when="true"><a href="#/items"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;items</a></li>
                                 <!-- JHipster will add entities to the menu here -->
                             </ul>
                         </li>
@@ -75,18 +83,17 @@
                                     &nbsp;<span translate="global.menu.account.logout">Log out</span></a></li>
                                 <li ng-switch-when="false"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span>
                                     &nbsp;<span translate="global.menu.account.login">Authenticate</span></a></li>
-
                                 <li ng-switch-when="false"><a href="#/register"><span class="glyphicon glyphicon-plus-sign"></span>
                                     &nbsp;<span translate="global.menu.account.register">Register</span></a></li>
                             </ul>
                         </li>
                         <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer" ng-controller="AdminController">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                    <span>
-                                        <span class="glyphicon glyphicon-tower"></span>
-                                        <span class="hidden-tablet" translate="global.menu.admin">Admin</span>
-                                        <b class="caret"></b>
-                                    </span>
+                                <span>
+                                    <span class="glyphicon glyphicon-tower"></span>
+                                    <span class="hidden-tablet" translate="global.menu.admin">Admin</span>
+                                    <b class="caret"></b>
+                                </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#/metrics"><span class="glyphicon glyphicon-dashboard"></span>
@@ -105,14 +112,14 @@
                         </li>
                         <li class="dropdown pointer" ng-controller="LanguageController">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                    <span>
-                                        <span class="glyphicon glyphicon-flag"></span>
-                                        <span class="hidden-tablet" translate="global.menu.language">Language</span>
-                                        <b class="caret"></b>
-                                    </span>
+                                <span>
+                                    <span class="glyphicon glyphicon-flag"></span>
+                                    <span class="hidden-tablet" translate="global.menu.language">Language</span>
+                                    <b class="caret"></b>
+                                </span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li active-menu="{{key}}" ng-repeat="(key, language) in languages">
+                                <li active-menu="{{ key }}" ng-repeat="(key, language) in languages">
                                     <a href="" ng-click="changeLanguage(key)">{{language}}</a>
                                 </li>
                             </ul>
@@ -121,7 +128,7 @@
                 </div>
             </div>
         </nav>
-        <div class="no-margin no-padding container-fluid">
+        <div class="container">
             <div ng-view=""></div>
 
             <div class="footer text-center">

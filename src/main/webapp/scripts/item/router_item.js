@@ -3,7 +3,7 @@
 tianwendongApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
             $routeProvider
-                .when('/item', {
+                .when('/items', {
                     templateUrl: 'views/items.html',
                     controller: 'ItemController',
                     resolve:{
