@@ -11,7 +11,6 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -40,12 +39,10 @@ public class Message implements Serializable {
     @Size(min = 0, max = 30)
     private String nickname;
 
-    @NotNull
     @Column(name = "content", nullable = false, updatable = false)
     private String content;
 
     @CreatedDate
-    @NotNull
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_time", nullable = false, updatable = false)
     private DateTime createdTime = DateTime.now();

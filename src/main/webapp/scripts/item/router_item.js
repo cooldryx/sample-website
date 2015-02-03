@@ -6,13 +6,13 @@ tianwendongApp
                 .when('/items', {
                     templateUrl: 'views/items.html',
                     controller: 'ItemController',
-                    resolve:{
+                    resolve: {
                         resolvedItem: ['ItemService', function (ItemService) {
                             return ItemService.query().$promise;
                         }]
                     },
                     access: {
-                        authorizedRoles: [USER_ROLES.user]
+                        authorizedRoles: [USER_ROLES.admin]
                     }
-                })
+                });
         });

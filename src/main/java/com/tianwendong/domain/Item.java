@@ -4,7 +4,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -19,19 +18,15 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
     @Column(name = "star", nullable = false)
     private Integer star;
 
-    @NotNull
     @Column(name = "description", nullable = false)
     private String description;
 
-    @NotNull
     @Column(name = "path", nullable = false)
     private String path;
 
