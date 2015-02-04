@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
@@ -104,8 +105,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/app/rest/activate").permitAll()
                 .antMatchers("/app/rest/authenticate").permitAll()
                 .antMatchers("/app/rest/items/lucky").permitAll()
-                .antMatchers("/app/rest/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers(HttpMethod.POST, "/app/rest/messages").permitAll()
+                .antMatchers("/protected/**").authenticated()
                 .antMatchers("/app/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/app/rest/items/**").authenticated()
+                .antMatchers("/app/rest/messages/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/app/rest/items/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
@@ -117,9 +122,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                .antMatchers("/protected/**").authenticated();
-
+                .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN);
     }
 
     @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
