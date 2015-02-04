@@ -39,7 +39,7 @@
                                 <span translate="global.menu.home">Home</span>
                             </a>
                         </li>
-                        <li>
+                        <li ng-show="!isAuthorized(userRoles.admin)">
                             <a data-toggle="modal" data-target="#saveMessageModal" ng-click="clear()">
                                 <span class="glyphicon glyphicon-envelope"></span>
                                 <span>Message</span>

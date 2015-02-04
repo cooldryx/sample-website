@@ -12,7 +12,7 @@ tianwendongApp
                         }]
                     },
                     access: {
-                        authorizedRoles: [USER_ROLES.admin]
+                        authorizedRoles: [USER_ROLES.all]
                     }
                 });
         });

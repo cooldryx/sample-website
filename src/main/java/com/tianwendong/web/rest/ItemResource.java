@@ -52,6 +52,7 @@ public class ItemResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.USER)
     public List<Item> getAll() {
         log.debug("REST request to get all Items");
         return itemRepository.findAll();
@@ -64,6 +65,7 @@ public class ItemResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<Item> get(@PathVariable Long id, HttpServletResponse response) {
         log.debug("REST request to get Item : {}", id);
         Item item = itemRepository.findOne(id);
