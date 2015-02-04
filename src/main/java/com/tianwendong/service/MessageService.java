@@ -2,6 +2,7 @@ package com.tianwendong.service;
 
 import com.tianwendong.domain.Message;
 import com.tianwendong.repository.MessageRepository;
+import com.tianwendong.web.rest.dto.MessageDTO;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -24,11 +25,11 @@ public class MessageService {
     @Inject
     private MessageRepository messageRepository;
 
-    public void saveNewMessage(String email, String nickname, String content, String ipAddress, String userAgent) {
+    public void saveNewMessage(MessageDTO messageDTO, String ipAddress, String userAgent) {
         Message newMessage = new Message();
-        newMessage.setEmail(email);
-        newMessage.setNickname(nickname);
-        newMessage.setContent(content);
+        newMessage.setEmail(messageDTO.getEmail());
+        newMessage.setNickname(messageDTO.getNickname());
+        newMessage.setContent(messageDTO.getContent());
         newMessage.setIpAddress(ipAddress);
         newMessage.setUserAgent(userAgent);
 
