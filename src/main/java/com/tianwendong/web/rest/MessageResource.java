@@ -48,12 +48,7 @@ public class MessageResource {
         String ip = request.getRemoteAddr();
         String userAgent = request.getHeader("User-Agent");
 
-        messageService.saveNewMessage(messageDTO.getEmail(),
-                messageDTO.getNickname(),
-                messageDTO.getContent(),
-                ip,
-                userAgent
-            );
+        messageService.saveNewMessage(messageDTO, ip, userAgent);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
