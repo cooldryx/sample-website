@@ -1,0 +1,12 @@
+<div>
+    <div class="btn-toolbar" role="toolbar" aria-label="Pagination Bar">
+        <button class="btn-group btn btn-default" role="group" ng-click="previous(pagination.currentPage)" ng-disabled="pagination.isFirst">Previous</button>
+        <button class="btn-group btn btn-default" role="group" aria-label="Go to page {{ $index }}"
+                ng-repeat="i in getNumber(pagination.totalPages) track by $index"
+                ng-click="goToPage($index)"
+                ng-disabled="$index == pagination.currentPage">
+            {{ $index + 1 }}
+        </button>
+        <button class="btn-group btn btn-default" role="group" ng-click="next(pagination.currentPage)" ng-disabled="pagination.isLast">Next</button>
+    </div>
+</div>

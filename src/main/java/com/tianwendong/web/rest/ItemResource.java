@@ -7,6 +7,8 @@ import com.tianwendong.security.AuthoritiesConstants;
 import com.tianwendong.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -46,9 +48,22 @@ public class ItemResource {
     }
 
     /**
-     * GET  /rest/items -> get all the items.
+     * GET  /rest/items -> get all the items with pagination.
      */
     @RequestMapping(value = "/rest/items",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @RolesAllowed(AuthoritiesConstants.USER)
+    public Page<Item> getPaginatedAll(Pageable pageable) {
+        log.debug("REST request to get all Items sorted by star with pagination");
+        return itemService.getAllItems(pageable);
+    }
+
+    /**
+     * GET  /rest/items/all -> get all the items.
+     */
+    @RequestMapping(value = "/rest/items/all",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

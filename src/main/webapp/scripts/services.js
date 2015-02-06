@@ -12,7 +12,7 @@ tianwendongApp.factory('LanguageService', function ($http, $translate, LANGUAGES
                     language = 'en';
                 }
 
-                var promise =  $http.get('i18n/' + language + '.json').then(function(response) {
+                var promise =  $http.get('i18n/' + language + '.json').then(function (response) {
                     return LANGUAGES;
                 });
                 return promise;
@@ -53,10 +53,24 @@ tianwendongApp.factory('Lucky', function ($resource) {
         });
     });
 
+tianwendongApp.factory('Pagination', function () {
+        return {
+            updatePage: function (page) {
+                this.currentPage = page;
+            },
+            setService: function (ResourceService) {
+                this.service = ResourceService;
+            },
+            getResource: function () {
+                return this.service.query({ page: this.currentPage }).$promise;
+            }
+        };
+    });
+
 tianwendongApp.factory('MetricsService',function ($http) {
         return {
             get: function() {
-                var promise = $http.get('metrics/metrics').then(function(response){
+                var promise = $http.get('metrics/metrics').then(function (response) {
                     return response.data;
                 });
                 return promise;
@@ -67,7 +81,7 @@ tianwendongApp.factory('MetricsService',function ($http) {
 tianwendongApp.factory('ThreadDumpService', function ($http) {
         return {
             dump: function() {
-                var promise = $http.get('dump').then(function(response){
+                var promise = $http.get('dump').then(function (response) {
                     return response.data;
                 });
                 return promise;
@@ -78,7 +92,7 @@ tianwendongApp.factory('ThreadDumpService', function ($http) {
 tianwendongApp.factory('HealthCheckService', function ($rootScope, $http) {
         return {
             check: function() {
-                var promise = $http.get('health').then(function(response){
+                var promise = $http.get('health').then(function (response) {
                     return response.data;
                 });
                 return promise;
@@ -89,7 +103,7 @@ tianwendongApp.factory('HealthCheckService', function ($rootScope, $http) {
 tianwendongApp.factory('ConfigurationService', function ($rootScope, $filter, $http) {
         return {
             get: function() {
-                var promise = $http.get('configprops').then(function(response){
+                var promise = $http.get('configprops').then(function (response) {
                     var properties = [];
                     angular.forEach(response.data, function(data) {
                         properties.push(data);
@@ -118,7 +132,7 @@ tianwendongApp.factory('AuditsService', function ($http) {
                 return promise;
             },
             findByDates: function(fromDate, toDate) {
-                var promise = $http.get('app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
+                var promise = $http.get('app/rest/audits/byDates', { params: { fromDate: fromDate, toDate: toDate } }).then(function (response) {
                     return response.data;
                 });
                 return promise;
@@ -204,7 +218,7 @@ tianwendongApp.factory('AuthenticationSharedService', function ($rootScope, $htt
                 }
 
                 var isAuthorized = false;
-                angular.forEach(authorizedRoles, function(authorizedRole) {
+                angular.forEach(authorizedRoles, function (authorizedRole) {
                     var authorized = (!!Session.login &&
                         Session.userRoles.indexOf(authorizedRole) !== -1);
 

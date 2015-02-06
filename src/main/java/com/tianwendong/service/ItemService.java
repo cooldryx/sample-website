@@ -4,6 +4,8 @@ import com.tianwendong.domain.Item;
 import com.tianwendong.repository.ItemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,10 @@ public class ItemService {
 
     @Inject
     private ItemRepository itemRepository;
+
+    public Page<Item> getAllItems(Pageable pageable) {
+        return itemRepository.findAllOrderByStar(pageable);
+    }
 
     public Item getLuckyItem() {
         log.debug("Start generating a random star for item");

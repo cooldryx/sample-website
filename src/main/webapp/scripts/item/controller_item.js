@@ -1,8 +1,18 @@
 'use strict';
 
-tianwendongApp.controller('ItemController', function ($scope, resolvedItem, ItemService) {
+tianwendongApp.controller('ItemController', function ($scope, resolvedService, ItemService, Pagination) {
 
-        $scope.items = resolvedItem;
+        var currentPage = Pagination.currentPage;
+
+        $scope.$watch('currentPage', function () {
+            Pagination.getResource().then(function (response) {
+                Pagination.isFirst = response.first;
+                Pagination.isLast = response.last;
+                Pagination.totalPages = response.totalPages;
+                Pagination.currentPage = parseInt(response.number);
+                $scope.items = response.content;
+            });
+        });
 
         $scope.create = function () {
             ItemService.save($scope.item,
@@ -14,12 +24,12 @@ tianwendongApp.controller('ItemController', function ($scope, resolvedItem, Item
         };
 
         $scope.update = function (id) {
-            $scope.item = ItemService.get({id: id});
+            $scope.item = ItemService.get({ id: id });
             $('#saveItemModal').modal('show');
         };
 
         $scope.delete = function (id) {
-            ItemService.delete({id: id},
+            ItemService.delete({ id: id },
                 function () {
                     $scope.items = ItemService.query();
                 });
@@ -28,5 +38,4 @@ tianwendongApp.controller('ItemController', function ($scope, resolvedItem, Item
         $scope.clear = function () {
             $scope.item = { name: null, star: null, description: null, id: null, path: null };
         };
-
     });

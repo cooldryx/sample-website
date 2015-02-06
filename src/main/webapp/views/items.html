@@ -50,7 +50,6 @@
                                    ng-model="item.path" required>
                         </div>
 
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -65,41 +64,52 @@
         </div>
     </div>
 
-    <div class="table-responsive">
+    <div class="container" ng-show="isAuthorized(userRoles.user) && !isAuthorized(userRoles.admin)">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="item in items">
+            <img class="img-thumbnail" ng-src="{{ item.path }}" alt="{{ item.name }}" />
+            <h4>{{ item.name }}</h4>
+            <h5>{{ item.tier }}</h5>
+            <p>{{ item.description }}</p>
+        </div>
+    </div>
+
+    <div class="table-responsive" ng-show="isAuthorized(userRoles.admin)">
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Star</th>
-                    <th>Description</th>
-                    <th>Path</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Star</th>
+                <th>Description</th>
+                <th>Path</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in items">
-                    <td>{{item.id}}</td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.star}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.path}}</td>
-                    <td>
-                        <button type="submit"
-                                ng-show="isAuthorized(userRoles.admin)"
-                                ng-click="update(item.id)"
-                                class="btn btn-default">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit
-                        </button>
-                        <button type="submit"
-                                ng-show="isAuthorized(userRoles.admin)"
-                                ng-click="delete(item.id)"
-                                class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                        </button>
-                    </td>
-                </tr>
+            <tr ng-repeat="item in items">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.star}}, {{ item.tier }}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.path}}</td>
+                <td>
+                    <button type="submit"
+                            ng-show="isAuthorized(userRoles.admin)"
+                            ng-click="update(item.id)"
+                            class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-show="isAuthorized(userRoles.admin)"
+                            ng-click="delete(item.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
+    <pagination></pagination>
+
 </div>
