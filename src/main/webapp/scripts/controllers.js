@@ -138,7 +138,7 @@ tianwendongApp.controller('SessionsController', function ($scope, resolvedSessio
         $scope.error = null;
         $scope.sessions = resolvedSessions;
         $scope.invalidate = function (series) {
-            Sessions.delete({series: encodeURIComponent(series)},
+            Sessions.delete({ series: encodeURIComponent(series) },
                 function (value, responseHeaders) {
                     $scope.error = null;
                     $scope.success = "OK";
@@ -153,27 +153,7 @@ tianwendongApp.controller('SessionsController', function ($scope, resolvedSessio
 
 tianwendongApp.controller('LuckyController', function ($scope, Lucky) {
         $scope.getAnotherLuckyItem = function () {
-            $scope.item = Lucky.get(function (item) {
-                item.path = 'images/RPGIconsExtra/' + item.path;
-                item.tier = (function (star) {
-                    switch (star) {
-                        case 1:
-                            return 'Common';
-                        case 2:
-                            return 'Rare';
-                        case 3:
-                            return 'Ultra Rare';
-                        case 4:
-                            return 'Epic';
-                        case 5:
-                            return 'Legendary';
-                        case 6:
-                            return 'Unique';
-                        default:
-                            return 'Mystery';
-                    }
-                })(item.star);
-            });
+            $scope.item = Lucky.get();
         };
 
         $scope.getNumber = function (number) {
@@ -192,6 +172,38 @@ tianwendongApp.controller('SendMessageController', function ($scope, Message) {
 
         $scope.clear = function () {
             $scope.message = { email: null, nickname: null, content: null };
+        };
+    });
+
+tianwendongApp.controller('PaginationController', function ($scope, $window, Pagination) {
+        $scope.pagination = Pagination;
+        function refresh () {
+            Pagination.updatePage($scope.currentPage);
+            $window.scrollTo(0, 0);
+        }
+
+        $scope.getNumber = function (number) {
+            return new Array(number);
+        };
+
+        $scope.goToPage = function (page) {
+            $scope.currentPage = page;
+            refresh();
+        };
+        $scope.next = function (currentPage) {
+            $scope.currentPage = parseInt(currentPage) + 1;
+            if ($scope.currentPage > $scope.totalPages) {
+                $scope.currentPage = $scope.totalPages;
+            }
+            refresh();
+        };
+
+        $scope.previous = function (currentPage) {
+            $scope.currentPage = parseInt(currentPage) - 1;
+            if ($scope.currentPage < 0) {
+                $scope.currentPage = 0;
+            }
+            refresh();
         };
     });
 

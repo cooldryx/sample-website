@@ -2,12 +2,13 @@ package com.tianwendong.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.annotation.JsonGetter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * A Item.
+ * An Item.
  */
 @Entity
 @Table(name = "T_ITEM")
@@ -52,6 +53,26 @@ public class Item implements Serializable {
 
     public void setStar(Integer star) {
         this.star = star;
+    }
+
+    @JsonGetter
+    public String getTier() {
+        switch (star) {
+            case 1:
+                return "Common";
+            case 2:
+                return "Rare";
+            case 3:
+                return "Ultra Rare";
+            case 4:
+                return "Epic";
+            case 5:
+                return "Legendary";
+            case 6:
+                return "Unique";
+            default:
+                return "Mystery";
+        }
     }
 
     public String getDescription() {

@@ -102,7 +102,7 @@ public class ItemResourceTest {
         itemRepository.saveAndFlush(item);
 
         // Get all the items
-        restItemMockMvc.perform(get("/app/rest/items"))
+        restItemMockMvc.perform(get("/app/rest/items/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

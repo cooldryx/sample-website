@@ -1,6 +1,8 @@
 package com.tianwendong.repository;
 
 import com.tianwendong.domain.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,4 +17,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("select i from Item i where i.star = ?1")
     List<Item> findByStar(int star);
+
+    @Query("select i from Item i order by i.star desc")
+    Page<Item> findAllOrderByStar(Pageable pageable);
 }

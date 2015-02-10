@@ -7,8 +7,8 @@ tianwendongApp
                     templateUrl: 'views/items.html',
                     controller: 'ItemController',
                     resolve: {
-                        resolvedItem: ['ItemService', function (ItemService) {
-                            return ItemService.query().$promise;
+                        resolvedService: ['ItemService', 'Pagination', function (ItemService, Pagination) {
+                            Pagination.setService(ItemService);
                         }]
                     },
                     access: {

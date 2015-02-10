@@ -37,7 +37,8 @@ angular.module('tianwendongApp')
                 });
             }
         };
-    }).directive('passwordStrengthBar', function() {
+    })
+    .directive('passwordStrengthBar', function() {
         return {
             replace: true,
             restrict: 'E',
@@ -130,5 +131,12 @@ angular.module('tianwendongApp')
             restrict: 'E',
             controller: 'SendMessageController',
             templateUrl: 'views/message.html'
+        }
+    })
+    .directive('pagination', function() {
+        return {
+            restrict: 'E',
+            controller: 'PaginationController',
+            templateUrl: 'views/pagination.html'
         }
     });
