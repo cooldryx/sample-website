@@ -9,7 +9,9 @@
         <title>Nichijou</title>
         <meta name="description" content="This is Tianwen Dong's personal website">
         <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="shortcut icon" href="favicon.png" type="image/png">
+        <link rel="icon" href="favicon.png" type="image/png">
+        <link rel="apple-touch-icon" href="apple_touch_icon.png">
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
@@ -46,7 +48,7 @@
                             </a>
                             <message></message>
                         </li>
-                        <li ng-switch-when="true" class="dropdown pointer">
+                        <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                 <span>
                                     <span class="glyphicon glyphicon-th-list"></span>
@@ -62,6 +64,12 @@
                                 <!-- JHipster will add entities to the menu here -->
                             </ul>
                         </li>
+                        <li ng-switch-when="true" ng-show="!isAuthorized(userRoles.admin)">
+                            <a href="#/items">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span>Items</span>
+                            </a>
+                        </li>
                         <li class="dropdown pointer">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                     <span>
@@ -75,7 +83,7 @@
                             <ul class="dropdown-menu" ng-controller="MenuController">
                                 <li ng-switch-when="true"><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span>
                                     &nbsp;<span translate="global.menu.account.settings">Settings</span></a></li>
-                                <li ng-switch-when="true"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
+                                <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
                                     &nbsp;<span translate="global.menu.account.password">Password</span></a></li>
                                 <li ng-switch-when="true"><a href="#/sessions"><span class="glyphicon glyphicon-cloud"></span>
                                     &nbsp;<span translate="global.menu.account.sessions">Sessions</span></a></li>
@@ -83,8 +91,10 @@
                                     &nbsp;<span translate="global.menu.account.logout">Log out</span></a></li>
                                 <li ng-switch-when="false"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span>
                                     &nbsp;<span translate="global.menu.account.login">Authenticate</span></a></li>
+                                <!-- Do not need registration at this time point.
                                 <li ng-switch-when="false"><a href="#/register"><span class="glyphicon glyphicon-plus-sign"></span>
                                     &nbsp;<span translate="global.menu.account.register">Register</span></a></li>
+                                -->
                             </ul>
                         </li>
                         <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer" ng-controller="AdminController">
@@ -110,7 +120,8 @@
                                     &nbsp;<span translate="global.menu.account.apidocs">API Docs</span></a></li>
                             </ul>
                         </li>
-                        <li class="dropdown pointer" ng-controller="LanguageController">
+                        <!-- Language switch, maybe I will change this to only Chinese and English -->
+                        <li class="dropdown pointer" ng-controller="LanguageController" ng-show="isAuthorized(userRoles.admin)">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                 <span>
                                     <span class="glyphicon glyphicon-flag"></span>
@@ -120,7 +131,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li active-menu="{{ key }}" ng-repeat="(key, language) in languages">
-                                    <a href="" ng-click="changeLanguage(key)">{{language}}</a>
+                                    <a href="" ng-click="changeLanguage(key)">{{ language }}</a>
                                 </li>
                             </ul>
                         </li>
@@ -128,8 +139,10 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
-            <div ng-view=""></div>
+        <div ng-class="{ 'no-margin no-padding container-fluid': isMain(), 'container': !isMain() }">
+            <div ng-view></div>
+
+            <div class="clearfix"></div>
 
             <div class="footer text-center">
                 <a href="#">&nbsp;Jhipster&nbsp;</a>

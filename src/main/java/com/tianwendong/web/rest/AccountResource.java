@@ -6,6 +6,7 @@ import com.tianwendong.domain.PersistentToken;
 import com.tianwendong.domain.User;
 import com.tianwendong.repository.PersistentTokenRepository;
 import com.tianwendong.repository.UserRepository;
+import com.tianwendong.security.AuthoritiesConstants;
 import com.tianwendong.security.SecurityUtils;
 import com.tianwendong.service.MailService;
 import com.tianwendong.service.UserService;
@@ -22,6 +23,7 @@ import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.context.SpringWebContext;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -68,6 +70,7 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
@@ -92,6 +95,7 @@ public class AccountResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
         User user = userService.activateRegistration(key);
         if (user == null) {
@@ -163,6 +167,7 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<?> changePassword(@RequestBody String password) {
         if (StringUtils.isEmpty(password)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);

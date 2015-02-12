@@ -463,7 +463,7 @@ module.exports = function (grunt) {
     grunt.registerTask('buildHeroku', [
         'test',
         'build',
-        'copy:generateHerokuDirectory',
+        'copy:generateHerokuDirectory'
     ]);
 
     grunt.registerTask('deployHeroku', [
@@ -476,7 +476,7 @@ module.exports = function (grunt) {
     grunt.registerTask('buildOpenshift', [
         'test',
         'build',
-        'copy:generateOpenshiftDirectory',
+        'copy:generateOpenshiftDirectory'
     ]);
 
     grunt.registerTask('deployOpenshift', [

@@ -9,21 +9,21 @@ tianwendongApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, USER_ROLES) {
 
             //Cache everything except rest api requests
-            httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*rest.*/],true);
+            httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*rest.*/], true);
 
             $routeProvider
                 .when('/register', {
                     templateUrl: 'views/register.html',
                     controller: 'RegisterController',
                     access: {
-                        authorizedRoles: [USER_ROLES.all]
+                        authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .when('/activate', {
                     templateUrl: 'views/activate.html',
                     controller: 'ActivationController',
                     access: {
-                        authorizedRoles: [USER_ROLES.all]
+                        authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .when('/login', {
@@ -50,7 +50,7 @@ tianwendongApp
                     templateUrl: 'views/password.html',
                     controller: 'PasswordController',
                     access: {
-                        authorizedRoles: [USER_ROLES.user]
+                        authorizedRoles: [USER_ROLES.admin]
                     }
                 })
                 .when('/sessions', {
@@ -176,8 +176,11 @@ tianwendongApp
                 $rootScope.$on('event:auth-loginRequired', function(rejection) {
                     Session.invalidate();
                     $rootScope.authenticated = false;
-                    if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" &&
-                            $location.path() !== "/activate" && $location.path() !== "/login") {
+                    if ($location.path() !== "/" &&
+                        $location.path() !== "" &&
+                        //$location.path() !== "/register" && /* No need for registration at this time point */
+                        //$location.path() !== "/activate" &&
+                        $location.path() !== "/login") {
                         var redirect = $location.path();
                         $location.path('/login').search('redirect', redirect).replace();
                     }

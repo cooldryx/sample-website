@@ -1,6 +1,5 @@
 <div>
-
-    <h2>Items</h2>
+    <h2>Item</h2>
 
     <button class="btn btn-primary btn-lg"
             data-toggle="modal"
@@ -64,34 +63,27 @@
         </div>
     </div>
 
-    <div class="container" ng-show="isAuthorized(userRoles.user) && !isAuthorized(userRoles.admin)">
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" ng-repeat="item in items">
-            <img class="img-thumbnail" ng-src="{{ item.path }}" alt="{{ item.name }}" />
-            <h4>{{ item.name }}</h4>
-            <h5>{{ item.tier }}</h5>
-            <p>{{ item.description }}</p>
-        </div>
-    </div>
-
-    <div class="table-responsive" ng-show="isAuthorized(userRoles.admin)">
+    <div class="table-responsive">
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>ID</th>
+                <th></th>
                 <th>Name</th>
                 <th>Star</th>
                 <th>Description</th>
-                <th>Path</th>
+                <th ng-show="isAuthorized(userRoles.admin)">Path</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="item in items">
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.star}}, {{ item.tier }}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.path}}</td>
+                <td>{{ item.id }}</td>
+                <td><img class="img-thumbnail" ng-src="{{ item.path }}" alt="{{ item.name }}" /></td>
+                <td class="{{ 'tier-' + item.star }}">{{ item.name }}</td>
+                <td class="{{ 'tier-' + item.star }}">{{ item.tier }}</td>
+                <td>{{ item.description }}</td>
+                <td ng-show="isAuthorized(userRoles.admin)">{{ item.path }}</td>
                 <td>
                     <button type="submit"
                             ng-show="isAuthorized(userRoles.admin)"
@@ -110,6 +102,9 @@
             </tbody>
         </table>
     </div>
+
+    <div class="clearfix"></div>
+
     <pagination></pagination>
 
 </div>
