@@ -2,9 +2,7 @@
 
 tianwendongApp.controller('ItemController', function ($scope, resolvedService, ItemService, Pagination) {
 
-        var currentPage = Pagination.currentPage;
-
-        $scope.$watch('currentPage', function () {
+        $scope.refresh = function () {
             Pagination.getResource().then(function (response) {
                 Pagination.isFirst = response.first;
                 Pagination.isLast = response.last;
@@ -12,12 +10,17 @@ tianwendongApp.controller('ItemController', function ($scope, resolvedService, I
                 Pagination.currentPage = parseInt(response.number);
                 $scope.items = response.content;
             });
+        };
+
+        var currentPage = Pagination.currentPage;
+        $scope.$watch('currentPage', function () {
+            $scope.refresh();
         });
 
         $scope.create = function () {
             ItemService.save($scope.item,
                 function () {
-                    $scope.items = ItemService.query();
+                    $scope.refresh();
                     $('#saveItemModal').modal('hide');
                     $scope.clear();
                 });
@@ -31,6 +34,7 @@ tianwendongApp.controller('ItemController', function ($scope, resolvedService, I
         $scope.delete = function (id) {
             ItemService.delete({ id: id },
                 function () {
+                    $scope.refresh();
                     $scope.items = ItemService.query();
                 });
         };

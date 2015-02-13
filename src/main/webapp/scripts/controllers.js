@@ -2,7 +2,10 @@
 
 /* Controllers */
 
-tianwendongApp.controller('MainController', function ($scope, Lucky) {
+tianwendongApp.controller('MainController', function ($scope, $location) {
+        $scope.isMain = function () {
+            return ($location.path() === '') || ($location.path() === '/');
+        };
     });
 
 tianwendongApp.controller('AdminController', function ($scope) {

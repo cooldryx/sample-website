@@ -179,7 +179,6 @@ tianwendongApp.factory('AuthenticationSharedService', function ($rootScope, $htt
                 });
             },
             valid: function (authorizedRoles) {
-
                 $http.get('protected/authentication_check.gif', {
                     ignoreAuthModule: 'ignoreAuthModule'
                 }).success(function (data, status, headers, config) {
@@ -189,7 +188,7 @@ tianwendongApp.factory('AuthenticationSharedService', function ($rootScope, $htt
                             $rootScope.account = Session;
                             if (!$rootScope.isAuthorized(authorizedRoles)) {
                                 // user is not allowed
-                               $rootScope.$broadcast("event:auth-notAuthorized");
+                                $rootScope.$broadcast("event:auth-notAuthorized");
                             } else {
                                 $rootScope.$broadcast("event:auth-loginConfirmed");
                             }

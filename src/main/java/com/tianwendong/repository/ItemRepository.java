@@ -18,6 +18,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("select i from Item i where i.star = ?1")
     List<Item> findByStar(int star);
 
-    @Query("select i from Item i order by i.star desc")
+    @Query("select i from Item i order by i.star desc, i.id asc")
     Page<Item> findAllOrderByStar(Pageable pageable);
 }

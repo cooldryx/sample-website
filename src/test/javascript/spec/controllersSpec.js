@@ -19,7 +19,7 @@ describe('Controllers Tests ', function () {
     });
 
     describe('PasswordController', function(){
-       var $scope,
+        var $scope,
            PasswordService;
 
         beforeEach(inject(function($rootScope, $controller, Password) {
