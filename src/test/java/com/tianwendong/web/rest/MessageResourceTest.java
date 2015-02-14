@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import com.tianwendong.Application;
 import com.tianwendong.domain.Message;
@@ -38,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 public class MessageResourceTest {
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("hh:mm d MMMM yyyy");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("hh:mm d MMMM yyyy").withLocale(Locale.ENGLISH);
 
     private static final String DEFAULT_EMAIL = "SAMPLE_TEXT";
     private static final String UPDATED_EMAIL = "UPDATED_TEXT";

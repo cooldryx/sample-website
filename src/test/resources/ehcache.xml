@@ -20,6 +20,14 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="com.tianwendong.domain.Item"
+           timeToLiveSeconds="7200">
+    </cache>
+
+    <cache name="com.tianwendong.domain.Message"
+           timeToLiveSeconds="14400">
+    </cache>
+
     <cache name="com.tianwendong.domain.User.authorities"
            timeToLiveSeconds="3600">
     </cache>
