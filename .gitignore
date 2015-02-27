@@ -13,5 +13,7 @@ node_modules
 src/main/webapp/dist
 src/main/webapp/bower_components
 src/main/webapp/styles
+src/main/resources/config/*.yml
+src/test/resources/config/*.yml
 .gradle
 build

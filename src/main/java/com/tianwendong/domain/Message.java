@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * A Message.
@@ -22,7 +23,7 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Message implements Serializable {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("hh:mm d MMMM yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("hh:mm d MMMM yyyy").withLocale(Locale.ENGLISH);
 
     private static final int MAX_USER_AGENT_LEN = 255;
 
