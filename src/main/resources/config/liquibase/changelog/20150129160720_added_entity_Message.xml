@@ -10,14 +10,14 @@
     <!--
         Added the entity Message.
     -->
-    <changeSet id="20150129160720" author="jhipster">
+    <changeSet id="20150129160720" author="tianwen">
         <createTable tableName="T_MESSAGE">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="email" type="varchar(90)"/>
             <column name="nickname" type="varchar(30)"/>
-            <column name="content" type="varchar(255)"/>
+            <column name="content" type="text"/>
             <column name="created_time" type="datetime"/>
             <column name="ip_address" type="varchar(40)"/>
             <column name="user_agent" type="varchar(255)"/>

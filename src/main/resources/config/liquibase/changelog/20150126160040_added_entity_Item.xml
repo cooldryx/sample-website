@@ -10,14 +10,14 @@
     <!--
         Added the entity Item.
     -->
-    <changeSet id="20150126160040" author="jhipster">
+    <changeSet id="20150126160040" author="tianwen">
         <createTable tableName="T_ITEM">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
             <column name="star" type="integer"/>
-            <column name="description" type="varchar(255)"/>
+            <column name="description" type="text"/>
             <column name="path" type="varchar(255)"/>
         </createTable>
 

@@ -40,7 +40,8 @@ public class Message implements Serializable {
     @Size(min = 0, max = 30)
     private String nickname;
 
-    @Column(name = "content", nullable = false, updatable = false)
+    @Lob
+    @Column(name = "content", nullable = false, updatable = false, length = 65535)
     private String content;
 
     @CreatedDate

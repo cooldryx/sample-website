@@ -25,7 +25,8 @@ public class Item implements Serializable {
     @Column(name = "star", nullable = false)
     private Integer star;
 
-    @Column(name = "description", nullable = false)
+    @Lob
+    @Column(name = "description", nullable = false, length = 65535)
     private String description;
 
     @Column(name = "path", nullable = false)
