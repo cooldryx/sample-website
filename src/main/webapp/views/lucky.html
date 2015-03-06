@@ -1,7 +1,6 @@
-<div ng-cloak class="load-transition">
-    <div class="lucky-item" ng-init="getAnotherLuckyItem()">
-        <h3>Congratulations</h3>
-        <h5>You found a(n) <span class="{{ 'tier-' + item.star }}">{{ item.tier }}</span> item</h5>
+<div ng-cloak class="row margin-top-lg">
+    <div class="lucky-item well load-transition col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1" ng-init="getAnotherLuckyItem()">
+        <h5>Congratulations! You found a(n) <span class="{{ 'tier-' + item.star }}">{{ item.tier }}</span> item</h5>
         <img ng-src="{{ item.path }}" alt="{{ item.name }}" />
         <p class="lead {{ 'tier-' + item.star }}">{{ item.name }}</p>
         <p>
@@ -10,11 +9,11 @@
         <p class="unique" ng-show="item.star == 6">This is the only one in the world! You are really lucky!</p>
         <p>{{ item.description }}</p>
 
-        <a href ng-click="getAnotherLuckyItem()"><button class="btn btn-default" aria-label="One More">One more</button></a>
+        <a href ng-click="getAnotherLuckyItem()"><button class="btn btn-default margin-top-lg" aria-label="One More">One more</button></a>
     </div>
 
     <div class="row" ng-show="!isAuthorized(userRoles.user)">
-        <p class="well col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+        <p class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
             Or you can login <a href="#/login?redirect=%2Fitems">here</a> with login: <strong>user</strong>
             and password: <strong>user</strong> to check out all the items
         </p>
