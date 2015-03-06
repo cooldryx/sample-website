@@ -16,13 +16,21 @@ body {
     margin: 0;
 }
 
+.margin-xs {
+    margin: 5px 5px;
+}
+
+.margin-top-lg {
+    margin-top: 30px;
+}
+
 .lucky-item {
     text-align: center;
     margin-bottom: 30px;
 }
 
 .lucky-item > h5 > span {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
 }
 
@@ -161,6 +169,38 @@ body {
     display: flex; /* NEW - Chrome, Opera 12.1, Firefox 20+ */
     align-items: center;
     justify-content: center;
+}
+
+@media
+only screen and (max-width: 767px) {
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    /*
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+    */
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */

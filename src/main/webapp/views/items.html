@@ -1,7 +1,7 @@
 <div>
     <h2>Item</h2>
 
-    <button class="btn btn-primary btn-lg"
+    <button class="btn btn-primary btn-lg margin-xs"
             data-toggle="modal"
             data-target="#saveItemModal"
             ng-show="isAuthorized(userRoles.admin)"
@@ -63,12 +63,12 @@
         </div>
     </div>
 
-    <div class="table-responsive">
+    <div>
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>ID</th>
-                <th></th>
+            <tr class="hidden-xs">
+                <th ng-show="isAuthorized(userRoles.admin)">ID</th>
+                <th class="col-lg-1 col-md-1 col-sm-1"></th>
                 <th>Name</th>
                 <th>Star</th>
                 <th>Description</th>
@@ -78,13 +78,13 @@
             </thead>
             <tbody>
             <tr ng-repeat="item in items">
-                <td>{{ item.id }}</td>
-                <td><img class="img-thumbnail" ng-src="{{ item.path }}" alt="{{ item.name }}" /></td>
+                <td ng-show="isAuthorized(userRoles.admin)">{{ item.id }}</td>
+                <td><img class="img-responsive img-thumbnail" ng-src="{{ item.path }}" alt="{{ item.name }}" /></td>
                 <td class="{{ 'tier-' + item.star }}">{{ item.name }}</td>
                 <td class="{{ 'tier-' + item.star }}">{{ item.tier }}</td>
                 <td>{{ item.description }}</td>
                 <td ng-show="isAuthorized(userRoles.admin)">{{ item.path }}</td>
-                <td>
+                <td ng-show="isAuthorized(userRoles.admin)">
                     <button type="submit"
                             ng-show="isAuthorized(userRoles.admin)"
                             ng-click="update(item.id)"
