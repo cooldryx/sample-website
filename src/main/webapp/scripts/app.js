@@ -180,6 +180,7 @@ tianwendongApp
                         $location.path() !== "" &&
                         //$location.path() !== "/register" && /* No need for registration at this time point */
                         //$location.path() !== "/activate" &&
+                        $location.path() !== "/lucky" &&
                         $location.path() !== "/login") {
                         var redirect = $location.path();
                         $location.path('/login').search('redirect', redirect).replace();
