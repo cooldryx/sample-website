@@ -12,8 +12,8 @@
         <a href ng-click="getAnotherLuckyItem()"><button class="btn btn-default margin-top-lg" aria-label="One More">One more</button></a>
     </div>
 
-    <div class="row" ng-show="!isAuthorized(userRoles.user)">
-        <p class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+    <div ng-show="!isAuthorized(userRoles.user)">
+        <p class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1 text-center">
             Or you can login <a href="#/login?redirect=%2Fitems">here</a> with login: <strong>user</strong>
             and password: <strong>user</strong> to check out all the items
         </p>
